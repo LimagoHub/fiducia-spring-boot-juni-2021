@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d42d085d-3fa9-47ea-818f-68e5e19f8d52" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/33045_Gesamtbroschuere_geschuetzt.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/.classpath" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/.project" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/.settings/org.eclipse.core.resources.prefs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/.settings/org.eclipse.m2e.core.prefs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/Beans.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/application/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/client/CalcClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/config/DemoConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/demo/Demo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/demo/DemoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/gui/Euro2DollarRechnerView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/gui/IEuro2DollarRechnerView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/gui/presenter/Euro2DollarPresenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/gui/presenter/IEuro2DollarPresenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/limago/springdemo/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/limago/springdemo/HelloWorld.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/limago/springdemo/OtherStringHelperImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/limago/springdemo/StringHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/limago/springdemo/StringHelperImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/math/Calculator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/math/CalculatorImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/math/CalculatorLogger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/math/CalculatorSecure.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/model/Euro2DollarForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/model/Euro2DollarRechnerImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/de/model/IEuro2DollarRechner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/main/java/log4j2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springdemo/src/test/java/de/limago/springdemo/AppTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1uFNBOHUVNNflYQHo77Ji0pQ0bl" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/springdemo" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d42d085d-3fa9-47ea-818f-68e5e19f8d52" name="Default Changelist" comment="" />
+      <created>1624257240705</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1624257240705</updated>
+      <workItem from="1624257242461" duration="38000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
