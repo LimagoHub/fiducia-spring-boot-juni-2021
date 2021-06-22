@@ -93,15 +93,16 @@ public class PersonenController {
 //        // Call service to save
 //        return ResponseEntity.created(uriComponents.toUri()).build();
 //    }
-    @PutMapping(path="", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path="", consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE} )
     @ApiResponse(responseCode = "200", description = "Person wurde geändert")
     @ApiResponse(responseCode = "201", description = "Person wurde erstellt")
     public ResponseEntity<Void> saveOrUpdateIdempotent(@Valid @RequestBody  PersonDTO person) {
 
+        throw new ArithmeticException("BlaBlupp");
 
-        System.out.println("Person nit der ID " + person.getId() + " wird idempotent gespeichert oder angelegt");
+        //System.out.println("Person nit der ID " + person.getId() + " wird idempotent gespeichert oder angelegt");
         // Call service to save
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        //return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 }
