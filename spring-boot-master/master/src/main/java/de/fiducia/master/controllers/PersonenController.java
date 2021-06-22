@@ -2,20 +2,28 @@ package de.fiducia.master.controllers;
 
 
 import de.fiducia.master.controllers.dtos.PersonDTO;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/personen")
+@RequestMapping("/v1/personen")
 public class PersonenController {
 
     // ERste Methode werte an den server zu übergeben (Daten werden in den pfad eingebaut)
     @GetMapping(path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
+    @ApiResponse(responseCode = "200", description = "Person wurde gefunden")
+    @ApiResponse(responseCode = "404", description = "Person wurde nicht gefunden")
     public ResponseEntity<PersonDTO> getPerson(@PathVariable String id) {
         // Simuliere Suchen
         Optional<PersonDTO> personDTOOptional ;
@@ -58,6 +66,42 @@ public class PersonenController {
         person.setVorname(person.getVorname().toUpperCase());
         person.setNachname(person.getNachname().toUpperCase());
         return ResponseEntity.ok(person);
+    }
+
+    @DeleteMapping(path="/{id}")
+    @ApiResponse(responseCode = "200", description = "Person wurde gelöscht")
+    @ApiResponse(responseCode = "404", description = "Person wurde nicht gefunden")
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+
+        if("4711".equals(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        System.out.println("Person nit der ID " + id + " wird gelöscht");
+        return ResponseEntity.ok().build();
+    }
+
+
+//    @PostMapping(path="", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Void> saveOrUpdateNotIdempotent(@RequestBody  PersonDTO person, UriComponentsBuilder uriComponentsBuilder) {
+//        if(person.getId() == null) {
+//            person.setId(UUID.randomUUID().toString());
+//        }
+//
+//        UriComponents uriComponents = uriComponentsBuilder.path("/v1/personen/{id}").buildAndExpand(person.getId());
+//
+//        System.out.println("Person nit der ID " + person.getId() + " wird nicht idempotent gespeichert oder angelegt");
+//        // Call service to save
+//        return ResponseEntity.created(uriComponents.toUri()).build();
+//    }
+    @PutMapping(path="", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiResponse(responseCode = "200", description = "Person wurde geändert")
+    @ApiResponse(responseCode = "201", description = "Person wurde erstellt")
+    public ResponseEntity<Void> saveOrUpdateIdempotent(@Valid @RequestBody  PersonDTO person) {
+
+
+        System.out.println("Person nit der ID " + person.getId() + " wird idempotent gespeichert oder angelegt");
+        // Call service to save
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 }
