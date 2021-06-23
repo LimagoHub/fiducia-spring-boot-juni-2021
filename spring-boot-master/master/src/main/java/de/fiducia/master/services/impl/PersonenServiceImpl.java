@@ -4,25 +4,29 @@ import de.fiducia.master.repositories.PersonenRepository;
 import de.fiducia.master.services.PersonServiceExecption;
 import de.fiducia.master.services.PersonenService;
 import de.fiducia.master.services.models.Person;
-import de.fiducia.master.services.models.PersonMapper;
+import de.fiducia.master.services.mapper.PersonMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional(rollbackFor = PersonServiceExecption.class)
 public class PersonenServiceImpl implements PersonenService {
 
     private final PersonenRepository repo;
     private final PersonMapper mapper;
     private final List<String> antipathen;
 
-    public PersonenServiceImpl(PersonenRepository repo, PersonMapper mapper, List<String> antipathen) {
+    public PersonenServiceImpl(PersonenRepository repo, PersonMapper mapper, @Qualifier("antipathen") List<String> antipathen) {
         this.repo = repo;
         this.mapper = mapper;
         this.antipathen = antipathen;
     }
+
 
 
     /*
@@ -40,6 +44,7 @@ public class PersonenServiceImpl implements PersonenService {
 
         person exits return true else false
      */
+
     @Override
     public boolean speichern(Person person) throws PersonServiceExecption {
         try {
@@ -78,21 +83,38 @@ public class PersonenServiceImpl implements PersonenService {
 
     @Override
     public boolean loeschen(Person person) throws PersonServiceExecption {
-        return false;
+        return loeschen(person.getId());
     }
 
     @Override
     public boolean loeschen(String id) throws PersonServiceExecption {
-        return false;
+        try {
+            if(repo.existsById(id)) {
+                repo.deleteById(id);
+                return true;
+            }
+            return false;
+        } catch (RuntimeException e) {
+           throw new PersonServiceExecption("upps",e);
+        }
     }
 
     @Override
     public List<Person> findeAllePersonen() throws PersonServiceExecption {
-        return null;
+        try {
+            return mapper.convert(repo.findeAlle());
+        } catch (RuntimeException e) {
+            throw new PersonServiceExecption("upps",e);
+        }
     }
 
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     @Override
     public Optional<Person> findePersonMachId(String id) throws PersonServiceExecption {
-        return Optional.empty();
+        try {
+            return repo.findById(id).map(mapper::convert);
+        } catch (RuntimeException e) {
+            throw new PersonServiceExecption("upps",e);
+        }
     }
 }

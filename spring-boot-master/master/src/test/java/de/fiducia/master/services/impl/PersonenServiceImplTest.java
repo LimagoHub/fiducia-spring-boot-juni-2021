@@ -3,12 +3,11 @@ package de.fiducia.master.services.impl;
 import de.fiducia.master.repositories.PersonenRepository;
 import de.fiducia.master.services.PersonServiceExecption;
 import de.fiducia.master.services.models.Person;
-import de.fiducia.master.services.models.PersonMapper;
+import de.fiducia.master.services.mapper.PersonMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;

@@ -2,23 +2,30 @@ package de.fiducia.master.controllers;
 
 
 import de.fiducia.master.controllers.dtos.PersonDTO;
+import de.fiducia.master.controllers.mapper.PersonDTOMapper;
+import de.fiducia.master.services.PersonenService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/personen")
 public class PersonenController {
+
+
+    private final PersonenService personenService;
+    private final PersonDTOMapper mapper;
+
+    public PersonenController(PersonenService personenService, PersonDTOMapper mapper) {
+        this.personenService = personenService;
+        this.mapper = mapper;
+    }
 
     // ERste Methode werte an den server zu übergeben (Daten werden in den pfad eingebaut)
     @GetMapping(path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
