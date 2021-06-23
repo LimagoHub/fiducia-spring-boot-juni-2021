@@ -3,8 +3,10 @@ package de.fiducia.master.controllers;
 
 import de.fiducia.master.controllers.dtos.PersonDTO;
 import de.fiducia.master.controllers.mapper.PersonDTOMapper;
+import de.fiducia.master.services.PersonServiceExecption;
 import de.fiducia.master.services.PersonenService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,40 +33,18 @@ public class PersonenController {
     @GetMapping(path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
     @ApiResponse(responseCode = "200", description = "Person wurde gefunden")
     @ApiResponse(responseCode = "404", description = "Person wurde nicht gefunden")
-    public ResponseEntity<PersonDTO> getPerson(@PathVariable String id) {
-        // Simuliere Suchen
-        Optional<PersonDTO> personDTOOptional ;
-
-
-        if("4711".equals(id)) {
-            personDTOOptional = Optional.empty();
-        } else {
-            personDTOOptional = Optional.of(PersonDTO.builder().id(id).vorname("John").nachname("Doe").build());
-        }
-
-
-        return ResponseEntity.of(personDTOOptional);
+    @ApiResponse(responseCode = "400", description = "Fehler im System")
+    public ResponseEntity<PersonDTO> getPerson(@PathVariable String id) throws PersonServiceExecption {
+         return ResponseEntity.of(personenService.findePersonMachId(id).map(mapper::convert));
     }
     // Zweite Methode werte an den server zu übergeben (Daten werden via ?-Operator)
     @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PersonDTO>> getPersons(
             @RequestParam(required = false, defaultValue = "leer") String vorname,
             @RequestParam(required = false, defaultValue = "leer")String nachname
-    ) {
+    )  throws PersonServiceExecption{
 
-        System.out.println(String.format("Vorname = %s, Nachname = %s", vorname, nachname));
-
-        List result = List.of(
-                PersonDTO.builder().id("1").vorname("John").nachname("Doe").build(),
-                PersonDTO.builder().id("2").vorname("John").nachname("Wayne").build(),
-                PersonDTO.builder().id("3").vorname("John").nachname("McClaine").build(),
-                PersonDTO.builder().id("4").vorname("John").nachname("Rambo").build(),
-                PersonDTO.builder().id("5").vorname("John").nachname("Wick").build(),
-                PersonDTO.builder().id("6").vorname("John Boy").nachname("Walton").build()
-        ).stream().filter(p->p.getVorname().equals(vorname)).collect(Collectors.toList());
-
-        return ResponseEntity.ok(result);
-
+        return ResponseEntity.ok(mapper.convertToDTO(personenService.findeAllePersonen()));
     }
 
     // Dritte Methode werte an den server zu übergeben (im Body mitgegeben) (Hier Post als ersatzget)
@@ -78,13 +58,12 @@ public class PersonenController {
     @DeleteMapping(path="/{id}")
     @ApiResponse(responseCode = "200", description = "Person wurde gelöscht")
     @ApiResponse(responseCode = "404", description = "Person wurde nicht gefunden")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
+    public ResponseEntity<Void> delete(@PathVariable String id) throws PersonServiceExecption {
 
-        if("4711".equals(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        System.out.println("Person nit der ID " + id + " wird gelöscht");
-        return ResponseEntity.ok().build();
+        if(personenService.loeschen(id))
+            return ResponseEntity.ok().build();
+        return ResponseEntity.notFound().build();
+
     }
 
 
@@ -103,13 +82,12 @@ public class PersonenController {
     @PutMapping(path="", consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE} )
     @ApiResponse(responseCode = "200", description = "Person wurde geändert")
     @ApiResponse(responseCode = "201", description = "Person wurde erstellt")
-    public ResponseEntity<Void> saveOrUpdateIdempotent(@Valid @RequestBody  PersonDTO person) {
+    public ResponseEntity<Void> saveOrUpdateIdempotent(@Valid @RequestBody  PersonDTO person) throws PersonServiceExecption{
 
-        throw new ArithmeticException("BlaBlupp");
+       if(personenService.speichern(mapper.convert(person)))
+           return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
 
-        //System.out.println("Person nit der ID " + person.getId() + " wird idempotent gespeichert oder angelegt");
-        // Call service to save
-        //return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 }
