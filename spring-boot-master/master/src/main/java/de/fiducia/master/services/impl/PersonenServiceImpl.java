@@ -48,6 +48,7 @@ public class PersonenServiceImpl implements PersonenService {
     @Override
     public boolean speichern(Person person) throws PersonServiceExecption {
         try {
+
             return speichernImpl(person);
         } catch (RuntimeException ex) {
             // Log
