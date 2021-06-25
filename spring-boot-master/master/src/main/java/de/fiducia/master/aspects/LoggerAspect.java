@@ -1,6 +1,7 @@
 package de.fiducia.master.aspects;
 
 
+import de.fiducia.master.services.models.Person;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -52,4 +53,10 @@ public class LoggerAspect {
         }
         return result;
     }
+
+    @Before("execution(public * de.fiducia.master.services.impl.PersonenServiceImpl.*(..)) && args(person,..)")
+    public void parameterDemo(JoinPoint joinPoint, Person person) {
+        System.out.println("############### "+ person+ " ###################");
+    }
+
 }
