@@ -18,13 +18,13 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/personen")
-public class PersonenController {
+public class PersonenQueryController {
 
 
     private final PersonenService personenService;
     private final PersonDTOMapper mapper;
 
-    public PersonenController(PersonenService personenService, PersonDTOMapper mapper) {
+    public PersonenQueryController(PersonenService personenService, PersonDTOMapper mapper) {
         this.personenService = personenService;
         this.mapper = mapper;
     }
@@ -55,39 +55,6 @@ public class PersonenController {
         return ResponseEntity.ok(person);
     }
 
-    @DeleteMapping(path="/{id}")
-    @ApiResponse(responseCode = "200", description = "Person wurde gelöscht")
-    @ApiResponse(responseCode = "404", description = "Person wurde nicht gefunden")
-    public ResponseEntity<Void> delete(@PathVariable String id) throws PersonServiceExecption {
 
-        if(personenService.loeschen(id))
-            return ResponseEntity.ok().build();
-        return ResponseEntity.notFound().build();
-
-    }
-
-
-//    @PostMapping(path="", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Void> saveOrUpdateNotIdempotent(@RequestBody  PersonDTO person, UriComponentsBuilder uriComponentsBuilder) {
-//        if(person.getId() == null) {
-//            person.setId(UUID.randomUUID().toString());
-//        }
-//
-//        UriComponents uriComponents = uriComponentsBuilder.path("/v1/personen/{id}").buildAndExpand(person.getId());
-//
-//        System.out.println("Person nit der ID " + person.getId() + " wird nicht idempotent gespeichert oder angelegt");
-//        // Call service to save
-//        return ResponseEntity.created(uriComponents.toUri()).build();
-//    }
-    @PutMapping(path="", consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE} )
-    @ApiResponse(responseCode = "200", description = "Person wurde geändert")
-    @ApiResponse(responseCode = "201", description = "Person wurde erstellt")
-    public ResponseEntity<Void> saveOrUpdateIdempotent(@Valid @RequestBody  PersonDTO person) throws PersonServiceExecption{
-
-       if(personenService.speichern(mapper.convert(person)))
-           return ResponseEntity.ok().build();
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-
-    }
 
 }

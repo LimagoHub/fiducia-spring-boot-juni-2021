@@ -1,5 +1,9 @@
-package de.fiducia.master.services.configuration;
+package de.fiducia.master.application.configuration;
 
+import de.fiducia.master.repositories.PersonenRepository;
+import de.fiducia.master.services.PersonenService;
+import de.fiducia.master.services.impl.PersonenServiceImpl;
+import de.fiducia.master.services.mapper.PersonMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,8 +28,8 @@ public class PersonenConfig {
         return List.of("Banana", "Apple", "Strawberry","Cherry");
     }
 
-//    @Bean
-//    public PersonenService personenService(PersonenRepository repo, PersonMapper mapper, @Qualifier("antipathen") List<String> antipathen) {
-//        return new PersonenServiceImpl(repo, mapper, antipathen);
-//    }
+    @Bean
+    public PersonenService personenService(PersonenRepository repo, PersonMapper mapper, @Qualifier("antipathen") List<String> antipathen) {
+        return new PersonenServiceImpl(repo, mapper, antipathen);
+    }
 }

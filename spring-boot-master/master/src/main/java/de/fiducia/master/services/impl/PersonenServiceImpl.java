@@ -3,25 +3,22 @@ package de.fiducia.master.services.impl;
 import de.fiducia.master.repositories.PersonenRepository;
 import de.fiducia.master.services.PersonServiceExecption;
 import de.fiducia.master.services.PersonenService;
-import de.fiducia.master.services.models.Person;
 import de.fiducia.master.services.mapper.PersonMapper;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
+import de.fiducia.master.services.models.Person;
+
+
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@Transactional(rollbackFor = PersonServiceExecption.class)
+
 public class PersonenServiceImpl implements PersonenService {
 
     private final PersonenRepository repo;
     private final PersonMapper mapper;
     private final List<String> antipathen;
 
-    public PersonenServiceImpl(PersonenRepository repo, PersonMapper mapper, @Qualifier("antipathen") List<String> antipathen) {
+    public PersonenServiceImpl(PersonenRepository repo, PersonMapper mapper, List<String> antipathen) {
         this.repo = repo;
         this.mapper = mapper;
         this.antipathen = antipathen;
@@ -109,7 +106,7 @@ public class PersonenServiceImpl implements PersonenService {
         }
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
+
     @Override
     public Optional<Person> findePersonMachId(String id) throws PersonServiceExecption {
         try {
